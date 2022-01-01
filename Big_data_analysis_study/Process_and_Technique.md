@@ -1,4 +1,4 @@
-b# Process and Technique
+# Process and Technique
 
 ## 빅데이터 프로세스
 - 데이터 소스 -> 수집 -> 저장 -> 처리 -> 분석 -> 표현
