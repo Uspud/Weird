@@ -11,6 +11,33 @@ using namespace std;
 각 케이스마다 한 줄씩 평균을 넘는 학생들의 비율을 반올림하여 소수점 셋째 자리까지 출력한다.
 */
 int main(void) {
+    cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
 
+    int c;
+
+    cin >> c;
+
+    int n[c];
+
+    for(int i = 0; i < c; i++) {
+        cin >> n[i];
+
+        int score[n[i]], sum = 0, check = 0;
+
+        for(int j = 0; j < n[i]; j++) {
+            cin >> score[j];
+            sum += score[j];
+        }
+        for (int j = 0; j < n[i]; j++) {
+            if (score[j] > float(sum) / float(n[i])) {
+                check++;
+            }
+        }
+        
+        cout << fixed;
+        cout.precision(3);
+        cout << float(check)/float(n[i])*100 << "%\n";
+    }
     return 0;
 }
