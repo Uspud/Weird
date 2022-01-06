@@ -15,22 +15,47 @@ int main(void) {
     cin.tie(NULL);
     ios_base::sync_with_stdio(false);
 
-    int n, num = 0;
-
-    string word;
+    int n, count = 0;
 
     cin >> n;
 
-    for(int i = 0; i < n; i++) {
-        cin >> word;
+    for(int loop = 0; loop < n; loop++) {
+        string s;
 
-        int length = word.length();
-        int alph[26] = { 0, };
+        cin >> s;
 
-        for(int j = 0; j < length; j++) {
-            alph[word[j]-97]++;
+        int alph[26] = { 0, }, length = s.length(), is_group_word = 1;
+
+        for(int i = 0; i < length; i++) alph[s[i]-97]++;
+
+        for(int i = 0; i < 26; i++) {
+            int num = alph[i], found;
+
+            if(num > 0) {
+                for (int j = 0; j < length; j++) {
+                    if(s[j] == i+97) {
+                        found = j;
+                        break;
+                    }
+                }
+
+                for(int j = 0; j < alph[i]; j++) {
+                    if(s[found+j] != i + 97) {
+                        is_group_word = 0;
+                        break;
+                    }
+                }
+            }
+
+            if(i == 25 && is_group_word == 1)    count++;
+            else if(is_group_word == 0){
+                is_group_word = 1;
+                break;
+            }
         }
     }
+
+    cout << count;
 
     return 0;
 }
