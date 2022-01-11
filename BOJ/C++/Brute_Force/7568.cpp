@@ -1,81 +1,27 @@
 #include <iostream>
-#define fastio ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);   // ì…ì¶œë ¥ ë¹ ë¥´ê²Œ í•˜ê¸°
+#define fastio ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);   // ÀÔÃâ·Â ºü¸£°Ô ÇÏ±â
 
 using namespace std;
+/*
+¹®Á¦
+¿ì¸®´Â »ç¶÷ÀÇ µ¢Ä¡¸¦ Å°¿Í ¸ö¹«°Ô, ÀÌ µÎ °³ÀÇ °ªÀ¸·Î Ç¥ÇöÇÏ¿© ±× µî¼ö¸¦ ¸Å°Üº¸·Á°í ÇÑ´Ù. ¾î¶² »ç¶÷ÀÇ ¸ö¹«°Ô°¡ x kgÀÌ°í Å°°¡ y cm¶ó¸é ÀÌ »ç¶÷ÀÇ µ¢Ä¡´Â (x, y)·Î Ç¥½ÃµÈ´Ù. µÎ »ç¶÷ A ¿Í BÀÇ µ¢Ä¡°¡ °¢°¢ (x, y), (p, q)¶ó°í ÇÒ ¶§ x > p ±×¸®°í y > q ÀÌ¶ó¸é ¿ì¸®´Â AÀÇ µ¢Ä¡°¡ BÀÇ µ¢Ä¡º¸´Ù "´õ Å©´Ù"°í ¸»ÇÑ´Ù. ¿¹¸¦ µé¾î ¾î¶² A, B µÎ »ç¶÷ÀÇ µ¢Ä¡°¡ °¢°¢ (56, 177), (45, 165) ¶ó°í ÇÑ´Ù¸é AÀÇ µ¢Ä¡°¡ Bº¸´Ù Å« ¼ÀÀÌ µÈ´Ù. ±×·±µ¥ ¼­·Î ´Ù¸¥ µ¢Ä¡³¢¸® Å©±â¸¦ Á¤ÇÒ ¼ö ¾ø´Â °æ¿ìµµ ÀÖ´Ù. ¿¹¸¦ µé¾î µÎ »ç¶÷ C¿Í DÀÇ µ¢Ä¡°¡ °¢°¢ (45, 181), (55, 173)ÀÌ¶ó¸é ¸ö¹«°Ô´Â D°¡ Cº¸´Ù ´õ ¹«°Ì°í, Å°´Â C°¡ ´õ Å©¹Ç·Î, "µ¢Ä¡"·Î¸¸ º¼ ¶§ C¿Í D´Â ´©±¸µµ »ó´ë¹æº¸´Ù ´õ Å©´Ù°í ¸»ÇÒ ¼ö ¾ø´Ù.
 
-void quick_sort(int a[], int start, int end) {
-    if(start >= end) {          // ìš”ì†Œê°€ 1ê°œì¸ ê²½ìš°
-        return;
-    }
+N¸íÀÇ Áı´Ü¿¡¼­ °¢ »ç¶÷ÀÇ µ¢Ä¡ µî¼ö´Â ÀÚ½Åº¸´Ù ´õ "Å« µ¢Ä¡"ÀÇ »ç¶÷ÀÇ ¼ö·Î Á¤ÇØÁø´Ù. ¸¸ÀÏ ÀÚ½Åº¸´Ù ´õ Å« µ¢Ä¡ÀÇ »ç¶÷ÀÌ k¸íÀÌ¶ó¸é ±× »ç¶÷ÀÇ µ¢Ä¡ µî¼ö´Â k+1ÀÌ µÈ´Ù. ÀÌ·¸°Ô µî¼ö¸¦ °áÁ¤ÇÏ¸é °°Àº µ¢Ä¡ µî¼ö¸¦ °¡Áø »ç¶÷Àº ¿©·¯ ¸íµµ °¡´ÉÇÏ´Ù. ¾Æ·¡´Â 5¸íÀ¸·Î ÀÌ·ç¾îÁø Áı´Ü¿¡¼­ °¢ »ç¶÷ÀÇ µ¢Ä¡¿Í ±× µî¼ö°¡ Ç¥½ÃµÈ Ç¥ÀÌ´Ù.
 
-    int pivot = start;
-    int i = pivot + 1;  // ì™¼ìª½ ì¶œë°œ ì§€ì 
-    int j = end;    // ì˜¤ë¥¸ìª½ ì¶œë°œ ì§€ì 
-    int temp;
+ÀÌ¸§	(¸ö¹«°Ô, Å°)	µ¢Ä¡ µî¼ö
+A	(55, 185)	2
+B	(58, 183)	2
+C	(88, 186)	1
+D	(60, 175)	2
+E	(46, 155)	5
+À§ Ç¥¿¡¼­ Cº¸´Ù ´õ Å« µ¢Ä¡ÀÇ »ç¶÷ÀÌ ¾øÀ¸¹Ç·Î C´Â 1µîÀÌ µÈ´Ù. ±×¸®°í A, B, D °¢°¢ÀÇ µ¢Ä¡º¸´Ù Å« »ç¶÷Àº C»ÓÀÌ¹Ç·Î ÀÌµéÀº ¸ğµÎ 2µîÀÌ µÈ´Ù. ±×¸®°í Eº¸´Ù Å« µ¢Ä¡´Â A, B, C, D ÀÌ·¸°Ô 4¸íÀÌ¹Ç·Î EÀÇ µ¢Ä¡´Â 5µîÀÌ µÈ´Ù. À§ °æ¿ì¿¡ 3µî°ú 4µîÀº Á¸ÀçÇÏÁö ¾Ê´Â´Ù. ¿©·¯ºĞÀº ÇĞ»ı N¸íÀÇ ¸ö¹«°Ô¿Í Å°°¡ ´ã±ä ÀÔ·ÂÀ» ÀĞ¾î¼­ °¢ »ç¶÷ÀÇ µ¢Ä¡ µî¼ö¸¦ °è»êÇÏ¿© Ãâ·ÂÇØ¾ß ÇÑ´Ù.
 
-    while(i <= j) {
-        // í¬ì¸í„°ê°€ ì—‡ê°ˆë¦´ë•Œ ê¹Œì§€
-        while (i <= end && a[i] >= a[pivot]){
-            i++;
-        }
-        while(j > start && a[j] <= a[pivot]) {
-            j--;
-        }
+ÀÔ·Â
+Ã¹ ÁÙ¿¡´Â ÀüÃ¼ »ç¶÷ÀÇ ¼ö NÀÌ ÁÖ¾îÁø´Ù. ±×¸®°í ÀÌ¾îÁö´Â N°³ÀÇ ÁÙ¿¡´Â °¢ »ç¶÷ÀÇ ¸ö¹«°Ô¿Í Å°¸¦ ³ªÅ¸³»´Â ¾çÀÇ Á¤¼ö x¿Í y°¡ ÇÏ³ªÀÇ °ø¹éÀ» µÎ°í °¢°¢ ³ªÅ¸³­´Ù.
 
-        if(i > j) {
-            // iê°€ jë³´ë‹¤ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°ˆ ê²½ìš°
-            temp = a[j];
-            a[j] = a[pivot];
-            a[pivot] = temp;
-        }else{
-            // ië²ˆì§¸ì™€ jë²ˆì§¸ë¥¼ ìŠ¤ì™‘
-            temp = a[i];
-            a[i] = a[j];
-            a[j] = temp;
-        }
-    }
-
-    // ë¶„í•  ê³„ì‚°
-    quick_sort(a, start, j-1);
-    quick_sort(a, j + 1, end);
-}
-
-void reverse_quick_sort(int a[], int start, int end) {
-    if(start >= end) {          // ìš”ì†Œê°€ 1ê°œì¸ ê²½ìš°
-        return;
-    }
-
-    int pivot = start;
-    int i = pivot + 1;  // ì™¼ìª½ ì¶œë°œ ì§€ì 
-    int j = end;    // ì˜¤ë¥¸ìª½ ì¶œë°œ ì§€ì 
-    int temp;
-
-    while(i <= j) {
-        // í¬ì¸í„°ê°€ ì—‡ê°ˆë¦´ë•Œ ê¹Œì§€
-        while (i <= end && a[i] <= a[pivot]){
-            i++;
-        }
-        while(j > start && a[j] >= a[pivot]) {
-            j--;
-        }
-
-        if(i > j) {
-            // iê°€ jë³´ë‹¤ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°ˆ ê²½ìš°
-            temp = a[j];
-            a[j] = a[pivot];
-            a[pivot] = temp;
-        }else{
-            // ië²ˆì§¸ì™€ jë²ˆì§¸ë¥¼ ìŠ¤ì™‘
-            temp = a[i];
-            a[i] = a[j];
-            a[j] = temp;
-        }
-    }
-
-    // ë¶„í•  ê³„ì‚°
-    quick_sort(a, start, j-1);
-    quick_sort(a, j + 1, end);
-}
+Ãâ·Â
+¿©·¯ºĞÀº ÀÔ·Â¿¡ ³ª¿­µÈ »ç¶÷ÀÇ µ¢Ä¡ µî¼ö¸¦ ±¸ÇØ¼­ ±× ¼ø¼­´ë·Î Ã¹ ÁÙ¿¡ Ãâ·ÂÇØ¾ß ÇÑ´Ù. ´Ü, °¢ µ¢Ä¡ µî¼ö´Â °ø¹é¹®ÀÚ·Î ºĞ¸®µÇ¾î¾ß ÇÑ´Ù.
+*/
 
 int main(void) {
     fastio;
@@ -83,52 +29,24 @@ int main(void) {
     int N;
     cin >> N;
 
-    int x[N], y[N], height[N], weight[N], x_order[N], y_order[N], order[N];
+    int input[N][2];
 
     for(int i = 0; i < N; i++) {
-        cin >> x[i] >> y[i];
-        weight[i] = x[i];
-        height[i] = y[i];
+        cin >> input[i][0] >> input[i][1];
+    } 
 
-        x_order[i] = 0;
-        y_order[i] = 0;
-        order[i] = 0;
-    }
-
-    quick_sort(weight, 0, N-1);
-    quick_sort(height, 0, N-1);
-
+    int result[N];
     for(int i = 0; i < N; i++) {
+        int rank = 1;
         for(int j = 0; j < N; j++) {
-            if(weight[i] == x[j] && x_order[j] == 0) {
-                x_order[j] = i+1;
-            }
-            if(height[i] == y[j] && y_order[j] == 0) {
-                y_order[j] = i+1;
-            }
+            if(input[i][0] < input[j][0] && input[i][1] < input[j][1])  rank++;
         }
-        cout << weight[i] << " " << height[i] << "\n";
-    }
 
-    int sum[N], sum_order[N];
-
-    for(int i = 0; i < N; i++) {
-        sum[i] = x_order[i] + y_order[i]; 
-        sum_order[i] = x_order[i] + y_order[i];
-    }
-
-    reverse_quick_sort(sum_order, 0, N-1);
-
-    for(int i = 0; i < N; i++) {
-        for(int j = 0; j < N; j++) {
-            if(sum_order[i] == sum[j] && order[j] == 0) {
-                order[j] = i+1;
-            }
-        }
+        result[i] = rank;
     }
 
     for(int i = 0; i < N; i++) {
-        cout << order[i] << " ";
+        cout << result[i] << " ";
     }
 
     return 0;
