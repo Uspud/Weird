@@ -1,7 +1,11 @@
 #include <iostream>
 #include <cmath>
+#include <array>
+#include <vector>
 
 #define fastio ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);   // 입출력 빠르게 하기
+
+using namespace std;
 
 int is_prime(int a) {       //소수 판별. a가 소수일 시 1, 소수가 아닐 시 0
     int num = sqrt(a);
