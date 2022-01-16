@@ -12,7 +12,6 @@ int arr[MAX];
 
 bool visited[MAX];
 
-
 void dfs(int k) {
     if(k == m) {
         for(int i = 0; i < m; i++) {
@@ -21,12 +20,12 @@ void dfs(int k) {
         cout << "\n";
     }
     else {
-        for(int i = 1; i<=n; i++) {
+        for(int i = 1; i <= n; i++) {
             if(!visited[i]) {
-                visited[i] = true;
+                for(int j = 1; j <= i; j++) visited[j] = true;
                 arr[k] = i;
-                dfs(k + 1);
-                visited[i] = false;
+                dfs(k+1);
+                for(int j = 1; j <= i; j++) visited[j] = false;
             }
         }
     }
