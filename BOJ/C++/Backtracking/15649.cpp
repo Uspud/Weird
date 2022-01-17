@@ -23,10 +23,10 @@ void dfs(int k) {
     else {
         for(int i = 1; i<=n; i++) {
             if(!visited[i]) {
-                visited[i] = true;
+                for(int j = 1; j <= i; j++) visited[j] = true;
                 arr[k] = i;
                 dfs(k + 1);
-                visited[i] = false;
+                for(int j = 1; j <= i; j++) visited[j] = false;
             }
         }
     }
