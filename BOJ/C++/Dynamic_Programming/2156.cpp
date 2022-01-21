@@ -18,11 +18,10 @@ int main(void) {
 
     mem[1] = podo[1];
     mem[2] = podo[1] + podo[2];
-    mem[3] = max({podo[1] + podo[3], podo[2] + podo[3]});
-    mem[4] = max({podo[1] + podo[3] + podo[4], podo[1] + podo[2] + podo[4], podo[2]+podo[3]});
+    mem[3] = max({podo[1] + podo[3], podo[2] + podo[3], mem[2]});
 
-    for(int i = 5; i <= n; i++) {
-        mem[i] = max({mem[i-2] + podo[i], mem[i-3] + podo[i-1] + podo[i], mem[i-2] + podo[i-1]});
+    for(int i = 4; i <= n; i++) {
+        mem[i] = max({mem[i-2] + podo[i], mem[i-3] + podo[i-1] + podo[i], mem[i-1]});
     }
 
     cout << mem[n];
