@@ -121,3 +121,9 @@ void merge_sort(int list[], int l, int r)
 		merge(list, l, mid, r);
 	}
 }
+
+int euclidean(int a, int b) {
+    int r = a % b;
+    if(r == 0)  return b;
+    return euclidean(b, r);
+}
