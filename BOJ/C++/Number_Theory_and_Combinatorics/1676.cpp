@@ -37,7 +37,10 @@ int main(void) {
         num = divide_by_five(num);
     }
 
+    int ans = 0;
+    while(five-- && two--)  ans++;
 
+    cout << ans;
 
     return 0;
 } 
