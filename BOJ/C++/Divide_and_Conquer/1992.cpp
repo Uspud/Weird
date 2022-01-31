@@ -4,24 +4,26 @@
 
 using namespace std;
 
-int arr[129][129], w_cnt = 0, b_cnt = 0;
+int map[65][65];
 
 void solve(int x, int y, int n) {
-    int temp = 0;
-    
+    int tmp = 0;
+
     for(int i = x; i < x + n; i++) {
         for(int j = y; j < y + n; j++) {
-            if(arr[i][j])   temp++;
+            if(map[i][j])   tmp++;
         }
     }
 
-    if(!temp)   w_cnt++;
-    else if(temp == n*n)    b_cnt++;
+    if(!tmp)    cout << "0";
+    else if(tmp == n*n) cout << "1";
     else {
+        cout << "(";
         solve(x, y, n / 2);
-        solve(x + n / 2, y, n / 2);
         solve(x, y + n / 2, n / 2);
+        solve(x + n / 2, y, n / 2);
         solve(x + n / 2, y + n / 2, n / 2);
+        cout << ")";
     }
 }
 
@@ -31,14 +33,13 @@ int main(void) {
     int n;  cin >> n;
 
     for(int i = 0; i < n; i++) {
+        string s;   cin >> s;
         for(int j = 0; j < n; j++) {
-            cin >> arr[i][j];
+            map[i][j] = s[j] - '0';
         }
     }
 
     solve(0, 0, n);
-
-    cout << w_cnt << "\n" << b_cnt;
 
     return 0;
 }
